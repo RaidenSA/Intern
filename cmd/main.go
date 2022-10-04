@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"net/url"
 	"sync"
 	"time"
 )
@@ -61,17 +60,26 @@ func TemplateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	case http.MethodPost:
 		longURL, err := io.ReadAll(r.Body)
+		//fmt.Println(longURL)
+		//fmt.Println(string(longURL))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		//Data comes in form of Encoded url.Value{} container with "url" key
-		decodedData, err := url.ParseQuery(string(longURL))
+		/*decodedData, err := url.ParseQuery(string(longURL))
+		fmt.println(decodedData)
+		if err != nil {
+			fmt.Print("loosed data type")
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
 		decodedURL := decodedData.Get("url")
 		if decodedURL == "" {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
-		}
+		}*/
+		decodedURL := string(longURL)
 		w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
 		w.WriteHeader(http.StatusCreated)
 		// If we already have this url, return token

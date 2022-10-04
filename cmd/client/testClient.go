@@ -40,14 +40,14 @@ func main() {
 	// запрос методом POST должен, кроме заголовков, содержать тело
 	// тело должно быть источником потокового чтения io.Reader
 	// в большинстве случаев отлично подходит bytes.Buffer
-	request, err := http.NewRequest(http.MethodPost, endpoint, bytes.NewBufferString(data.Encode()))
+	request, err := http.NewRequest(http.MethodPost, endpoint, bytes.NewBufferString(long))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 	// в заголовках запроса сообщаем, что данные кодированы стандартной URL-схемой
 	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	request.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
+	request.Header.Add("Content-Length", strconv.Itoa(len(long)))
 	// отправляем запрос и получаем ответ
 	//response, err := client.Do(request)
 	response, err := client.Get("")
