@@ -50,8 +50,8 @@ func main() {
 	request.Header.Add("Content-Length", strconv.Itoa(len(long)))
 	// отправляем запрос и получаем ответ
 	//response, err := client.Do(request)
-	//response, err := client.Get("")
-	response, err := client.Get("http://localhost:8080/G0iRMQX4gs")
+	response, err := client.Get("http://localhost:8080/3rI4hVUrBH")
+	//response, err := client.Get("http://localhost:8080/G0iRMQX4gs")
 	//http://ya.ru
 	//http://ppkvmeyfa.biz
 	if err != nil {

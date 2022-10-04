@@ -2,13 +2,14 @@ package handler
 
 import (
 	"fmt"
-	"intern/internal/app"
+	"intern/internal/methods"
+	"intern/internal/service"
 	"io"
 	"log"
 	"net/http"
 )
 
-const addr = "localhost:8080"
+const Addr = "localhost:8080"
 
 //var newStorage = app.Service{}
 /*
@@ -28,7 +29,7 @@ func TemplateHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		//fmt.Println(q)
-		if value, ok := app.NewStorage.CurStorage.TokenToValue(q); ok {
+		if value, ok := service.ServiceStorage.CurStorage.TokenToValue(q); ok {
 			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 			w.Header().Set("Location", value)
 			w.WriteHeader(http.StatusTemporaryRedirect)
@@ -48,9 +49,9 @@ func TemplateHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
 		w.WriteHeader(http.StatusCreated)
 		// If we already have this url, return token
-		token := app.NewStorage.CurStorage.CreateToken(decodedURL)
+		token := methods.CreateToken(decodedURL)
 		//Return full short url
-		_, err = fmt.Fprint(w, "http://"+addr+"/"+token)
+		_, err = fmt.Fprint(w, "http://"+Addr+"/"+token)
 		if err != nil {
 			log.Fatal(err)
 		}

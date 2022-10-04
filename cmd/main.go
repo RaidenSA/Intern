@@ -2,22 +2,12 @@ package main
 
 import (
 	"intern/internal/app"
-	"intern/internal/handler"
 	"log"
-	"net/http"
 )
 
-const addr = "localhost:8080"
-
 func main() {
-	// In-Memory storage
-	//Selection of handler
+	// Here should be params
 	app.New()
-	http.HandleFunc("/", handler.TemplateHandler)
-	//Server Properties
-	server := &http.Server{
-		Addr: addr,
-	}
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(app.Server.ListenAndServe())
 
 }

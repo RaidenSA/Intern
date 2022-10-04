@@ -1,13 +1,12 @@
 package storage
 
 import "sync"
-import "intern/internal/tokengen"
 
 type MemoryStorage interface {
 	//2 checks whether we have such inquiry
 	ValueToToken(string) (string, bool) // Value, returns Token if found
 	TokenToValue(string) (string, bool) // Token, returns Value if found
-	CreateToken(string) string
+	//CreateToken(string) string
 	SetToken(string, string) // Token + value, places them in memory
 	//Create Token may be remade
 }
@@ -41,6 +40,7 @@ func (c *Container) SetToken(token string, value string) {
 	return
 }
 
+/*
 func (c *Container) CreateToken(value string) string {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -55,3 +55,4 @@ func (c *Container) CreateToken(value string) string {
 	c.MapValueToToken[value] = token
 	return token
 }
+*/
