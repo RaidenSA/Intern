@@ -18,7 +18,7 @@ var InMemoryStorage = storage.Container{
 	MapValueToToken: make(map[string]string),
 }
 */
-func TemplateHandler(w http.ResponseWriter, r *http.Request) {
+func HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		q := r.URL.String()

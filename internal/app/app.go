@@ -16,6 +16,7 @@ func New() {
 		MapTokenToValue: make(map[string]string),
 		MapValueToToken: make(map[string]string),
 	}
-	http.HandleFunc("/", handler.TemplateHandler)
+	//service.ServiceStorage.CurStorage = storage.DataBase{}
+	http.HandleFunc("/", handler.HTTPHandler)
 	return
 }
