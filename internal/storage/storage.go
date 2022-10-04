@@ -4,10 +4,11 @@ import "sync"
 import "intern/internal/tokengen"
 
 type MemoryStorage interface {
-	//2 checks whether we have suck inquiry
-	ValueToToken(string) (string, bool)
-	TokenToValue(string) (string, bool)
+	//2 checks whether we have such inquiry
+	ValueToToken(string) (string, bool) // Value, returns Token if found
+	TokenToValue(string) (string, bool) // Token, returns Value if found
 	CreateToken(string) string
+	SetToken(string, string) // Token + value, places them in memory
 	//Create Token may be remade
 }
 type Container struct {
@@ -30,6 +31,14 @@ func (c *Container) ValueToToken(token string) (string, bool) {
 	defer c.mu.Unlock()
 	value, ok := c.MapValueToToken[token]
 	return value, ok
+}
+
+func (c *Container) SetToken(token string, value string) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.MapTokenToValue[token] = value
+	c.MapValueToToken[value] = token
+	return
 }
 
 func (c *Container) CreateToken(value string) string {
