@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"Intern/internal/storage"
 	"fmt"
+	"intern/internal/storage"
 	"io"
 	"log"
 	"net/http"

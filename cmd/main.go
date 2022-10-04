@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Intern/internal/handler"
+	"intern/internal/handler"
 	"log"
 	"net/http"
 )

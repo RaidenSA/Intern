@@ -1,7 +1,7 @@
 package storage
 
 import "sync"
-import "Intern/internal/tokengen"
+import "intern/internal/tokengen"
 
 type MemoryStorage interface {
 	//2 checks whether we have suck inquiry
