@@ -24,9 +24,11 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 			w.Header().Set("Location", value)
 			w.WriteHeader(http.StatusTemporaryRedirect)
+			log.Println("HTTP GET request served. Got token:", q, " Sent URL:", value)
 		} else {
 			http.Error(w, "No such url", http.StatusNotFound)
 		}
+
 		return
 	case http.MethodPost:
 		longURL, err := io.ReadAll(r.Body)
@@ -37,17 +39,17 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		decodedURL := string(longURL)
-		w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.WriteHeader(http.StatusCreated)
 		// If we already have this url, return token
 		token := s.CreateToken(decodedURL)
 		//Return full short url
-		_, err = fmt.Fprint(w, "http://"+Addr+"/"+token)
+		newUrl := "http://" + Addr + "/" + token
+		_, err = fmt.Fprint(w, newUrl)
 		if err != nil {
-			fmt.Println("!")
 			log.Fatal(err, "!")
 		}
-		log.Println("finished successfully")
+		log.Println(" HTTP Post request served. Got URL:", decodedURL, " Sent URL:", newUrl)
 		return
 	default:
 		http.Error(w, "wrong url", http.StatusBadRequest)
