@@ -15,13 +15,14 @@ type Server struct {
 
 func New(storageName string, serverMode string) {
 	var stor storage.MemoryStorage
-	log.Println("Storage mode: ", storageName)
 	switch storageName {
 	case "postgres":
+		log.Println("Storage mode: ", storageName)
 		stor = storage.DataBase{
 			ConnStr: "user=postgres password=fnkfynblf dbname=dbase sslmode=disable",
 		}
 	default:
+		log.Println("Storage mode: InMemory")
 		stor = &storage.Container{
 			MapTokenToValue: make(map[string]string),
 			MapValueToToken: make(map[string]string),
@@ -31,9 +32,9 @@ func New(storageName string, serverMode string) {
 	s := &Server{
 		Storage: stor,
 	}
-	log.Println("Server mode: ", serverMode)
 	switch serverMode {
 	case "grpc":
+		log.Println("Server mode: ", serverMode)
 		serv := grpc.NewServer()
 		// Register gRPC server
 		api.RegisterPostListenerServer(serv, s)
@@ -49,6 +50,7 @@ func New(storageName string, serverMode string) {
 			log.Fatal(err)
 		}
 	default:
+		log.Println("Server mode: HTTP")
 		http.HandleFunc("/", s.Handler)
 		log.Fatal(http.ListenAndServe(Addr, nil))
 	}
