@@ -1,21 +1,15 @@
 package main
 
 import (
-	"intern/internal/handler"
+	"intern/internal/app"
 	"log"
 	"net/http"
 )
 
-const addr = "localhost:8080"
-
 func main() {
-	// In-Memory storage
-	//Selection of handler
-	http.HandleFunc("/", handler.TemplateHandler)
-	//Server Properties
-	server := &http.Server{
-		Addr: addr,
-	}
-	log.Fatal(server.ListenAndServe())
+	// Here should be params
+
+	app.New("postgres") //"postgres for postgres mode
+	log.Fatal(http.ListenAndServe(app.Addr, nil))
 
 }
