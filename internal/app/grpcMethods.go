@@ -17,9 +17,11 @@ func (s *Server) Post(_ context.Context, req *api.PostRequest) (*api.PostRespons
 	token := s.CreateToken(decodedURL)
 	//Return full short url
 	shortUrl := "http://" + Addr + "/" + token
+	log.Println("GRPC POST request served. Got URL:", decodedURL, " Sent URL:", shortUrl)
 	return &api.PostResponse{
 		ShortURL: shortUrl,
 	}, nil
+
 }
 
 func (s *Server) GET(_ context.Context, req *api.GetRequest) (*api.GetResponse, error) {
@@ -32,6 +34,7 @@ func (s *Server) GET(_ context.Context, req *api.GetRequest) (*api.GetResponse, 
 		return nil, errors.New("EmptyUrl")
 	}
 	if value, ok := s.Storage.TokenToValue(q); ok {
+		log.Println("GRP GET request served. Got token:", q, " Sent URL:", value)
 		return &api.GetResponse{
 			LongURL: value,
 		}, nil
