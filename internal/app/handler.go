@@ -1,9 +1,8 @@
-package handler
+package app
 
 import (
 	"fmt"
-	"intern/internal/methods"
-	"intern/internal/service"
+	_ "github.com/lib/pq"
 	"io"
 	"log"
 	"net/http"
@@ -11,14 +10,7 @@ import (
 
 const Addr = "localhost:8080"
 
-//var newStorage = app.Service{}
-/*
-var InMemoryStorage = storage.Container{
-	MapTokenToValue: make(map[string]string),
-	MapValueToToken: make(map[string]string),
-}
-*/
-func HTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		q := r.URL.String()
@@ -28,8 +20,7 @@ func HTTPHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "No such url", http.StatusNotFound)
 			return
 		}
-		//fmt.Println(q)
-		if value, ok := service.ServiceStorage.CurStorage.TokenToValue(q); ok {
+		if value, ok := s.Storage.TokenToValue(q); ok {
 			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 			w.Header().Set("Location", value)
 			w.WriteHeader(http.StatusTemporaryRedirect)
@@ -49,12 +40,14 @@ func HTTPHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
 		w.WriteHeader(http.StatusCreated)
 		// If we already have this url, return token
-		token := methods.CreateToken(decodedURL)
+		token := s.CreateToken(decodedURL)
 		//Return full short url
 		_, err = fmt.Fprint(w, "http://"+Addr+"/"+token)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println("!")
+			log.Fatal(err, "!")
 		}
+		log.Println("finished successfully")
 		return
 	default:
 		http.Error(w, "wrong url", http.StatusBadRequest)

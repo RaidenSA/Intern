@@ -1,4 +1,4 @@
-package service
+package storage
 
 type MemoryStorage interface {
 	//2 checks whether we have such inquiry
@@ -7,9 +7,3 @@ type MemoryStorage interface {
 	SetToken(string, string)            // Token + value, places them in memory
 	//Create Token may be remade
 }
-
-type Service struct {
-	CurStorage MemoryStorage
-}
-
-var ServiceStorage Service

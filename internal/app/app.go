@@ -1,22 +1,31 @@
 package app
 
 import (
-	"intern/internal/handler"
-	"intern/internal/service"
 	"intern/internal/storage"
 	"net/http"
 )
 
-var Server = &http.Server{
-	Addr: handler.Addr,
+type Server struct {
+	Storage storage.MemoryStorage
 }
 
-func New() {
-	service.ServiceStorage.CurStorage = &storage.Container{
-		MapTokenToValue: make(map[string]string),
-		MapValueToToken: make(map[string]string),
+func New(storageName string) *Server {
+	var stor storage.MemoryStorage
+	switch storageName {
+	case "postgres":
+		stor = storage.DataBase{
+			ConnStr: "user=postgres password=fnkfynblf dbname=dbase sslmode=disable",
+		}
+	default:
+		stor = &storage.Container{
+			MapTokenToValue: make(map[string]string),
+			MapValueToToken: make(map[string]string),
+		}
 	}
-	//service.ServiceStorage.CurStorage = storage.DataBase{}
-	http.HandleFunc("/", handler.HTTPHandler)
-	return
+
+	s := &Server{
+		Storage: stor,
+	}
+	http.HandleFunc("/", s.Handler)
+	return s
 }
