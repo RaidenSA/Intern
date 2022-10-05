@@ -13,7 +13,6 @@ import (
 )
 
 func main() {
-	// адрес сервиса (как его писать, расскажем в следующем уроке)
 	endpoint := "http://localhost:8080/"
 	//fmt.Println("Post = 0, get = 1")
 	//a:=0
@@ -37,16 +36,12 @@ func main() {
 	// конструируем HTTP-клиент
 	client := &http.Client{}
 	// конструируем запрос
-	// запрос методом POST должен, кроме заголовков, содержать тело
-	// тело должно быть источником потокового чтения io.Reader
-	// в большинстве случаев отлично подходит bytes.Buffer
 	request, err := http.NewRequest(http.MethodPost, endpoint, bytes.NewBufferString(long))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 	request.Close = true
-	// в заголовках запроса сообщаем, что данные кодированы стандартной URL-схемой
 	request.Header.Add("Content-Type", "text/plain; charset=utf-8")
 	request.Header.Add("Content-Length", strconv.Itoa(len(long)))
 	// отправляем запрос и получаем ответ

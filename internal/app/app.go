@@ -7,17 +7,23 @@ import (
 	"intern/internal/storage"
 )
 
+const user = "postgres"
+const myPass = "postgres"
+const dbname = "postgres"
+const connStr = "user=" + user + " password=" + myPass + " dbname=" + dbname + " sslmode=disable"
+
 type Server struct {
 	Storage storage.MemoryStorage
 }
 
 func New(storageName string) *Server {
 	var stor storage.MemoryStorage
+	//Selecting storage depending on argument
 	switch storageName {
 	case "postgres":
 		log.Println("Storage mode: ", storageName)
 		stor = storage.DataBase{
-			ConnStr: "user=postgres password=fnkfynblf dbname=dbase sslmode=disable",
+			ConnStr: connStr,
 		}
 	default:
 		log.Println("Storage mode: InMemory")
