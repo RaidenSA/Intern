@@ -1,0 +1,27 @@
+
+syntax = "proto3"; // use proto file v3
+
+package api; // name of package
+option go_package ="./internal/api";
+// Define service
+service PostListener {
+  rpc Post (PostRequest) returns (PostResponse) {}
+  rpc GET (GetRequest) returns (GetResponse) {}
+}
+
+// Define service methods
+
+message PostRequest {
+  string longURL = 1;
+}
+
+message PostResponse {
+  string shortURL = 1; // Unique ID number for result
+}
+message GetRequest {
+  string shortURL = 1;
+}
+
+message GetResponse {
+  string longURL = 1; // Unique ID number for result
+}
