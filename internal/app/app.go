@@ -1,10 +1,8 @@
 package app
 
 import (
-	"log"
-	"net/http"
-
 	"intern/internal/storage"
+	"log"
 )
 
 const user = "postgres"
@@ -37,6 +35,5 @@ func New(storageName string) *Server {
 		Storage: stor,
 	}
 
-	http.HandleFunc("/", s.Handler)
 	return s
 }

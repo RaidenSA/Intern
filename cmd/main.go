@@ -37,5 +37,6 @@ func main() {
 		}
 	}(s)
 	log.Println("HTTP Runing")
+	http.HandleFunc("/", s.Handler)
 	log.Fatal(http.ListenAndServe(app.Addr, nil))
 }
