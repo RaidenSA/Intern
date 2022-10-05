@@ -12,3 +12,8 @@ By default service runs with in-memory storage, to run with postgre in should be
 Dockerfile is set for default in-memoru use, for postgres it should be changed.
 
 Default address is set in the app package.
+
+# Docker image repository
+
+https://hub.docker.com/repository/docker/raidensa/urlshortner/general
+
