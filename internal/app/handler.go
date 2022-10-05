@@ -39,7 +39,7 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		decodedURL := string(longURL)
-		w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		w.WriteHeader(http.StatusCreated)
 		// If we already have this url, return token
 		token := s.CreateToken(decodedURL)
