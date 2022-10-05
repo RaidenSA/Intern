@@ -1,9 +1,10 @@
 package app
 
 import (
-	"intern/internal/storage"
 	"log"
 	"net/http"
+
+	"intern/internal/storage"
 )
 
 type Server struct {

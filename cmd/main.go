@@ -2,22 +2,24 @@ package main
 
 import (
 	"google.golang.org/grpc"
-	"intern/internal/api"
-	"intern/internal/app"
 	"log"
 	"net"
 	"net/http"
 	"os"
+
+	"intern/internal/api"
+	"intern/internal/app"
 )
 
 func main() {
 	// Here should be params
 	args := os.Args[1:]
-
+	//Default set for params
 	storageMode := "inMemory"
 	if len(args) > 0 {
 		storageMode = args[0]
 	}
+	//Preparing Storage
 	s := app.New(storageMode) //"postgres for postgres mode
 
 	go func(srv *app.Server) {
@@ -29,7 +31,7 @@ func main() {
 			log.Fatal(err)
 		}
 		// Start gRPC server
-		log.Println("Grpc Running")
+		log.Println("GRPC Running")
 		if err := s.Serve(l); err != nil {
 			log.Fatal(err)
 		}

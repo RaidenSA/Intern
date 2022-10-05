@@ -11,9 +11,7 @@ type Container struct {
 func (c *Container) TokenToValue(token string) (string, bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	//if _,ok:= c.mapTokenToValue[token]; ok{
 	value, ok := c.MapTokenToValue[token]
-	//}
 	return value, ok
 }
 

@@ -45,8 +45,9 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+	request.Close = true
 	// в заголовках запроса сообщаем, что данные кодированы стандартной URL-схемой
-	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	request.Header.Add("Content-Type", "text/plain; charset=utf-8")
 	request.Header.Add("Content-Length", strconv.Itoa(len(long)))
 	// отправляем запрос и получаем ответ
 	response, err := client.Do(request)
@@ -55,7 +56,7 @@ func main() {
 	//http://ya.ru
 	//http://ppkvmeyfa.biz
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err, "REsponse error")
 		os.Exit(1)
 	}
 	// печатаем код ответа

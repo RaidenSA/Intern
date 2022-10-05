@@ -3,9 +3,10 @@ package app
 import (
 	"context"
 	"errors"
-	"intern/internal/api"
 	"log"
 	"strings"
+
+	"intern/internal/api"
 )
 
 func (s *Server) Post(_ context.Context, req *api.PostRequest) (*api.PostResponse, error) {
