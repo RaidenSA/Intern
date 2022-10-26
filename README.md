@@ -13,7 +13,20 @@ Dockerfile is set for default in-memoru use, for postgres it should be changed.
 
 Default address is set in the app package.
 
+
 # Docker image repository
 
 https://hub.docker.com/repository/docker/raidensa/urlshortner/general
 
+# Build instructions.
+After git clone it should be enough to run in the project directory:
+
+`docker-compose build`
+
+Then:
+
+`docker-compose up`
+
+After that service should be accessed by http via port 8080 on local host.
+
+After that service should be accessed by http via port 8088 on local host.
