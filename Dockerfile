@@ -5,7 +5,7 @@ COPY ./ ./
 RUN go mod download
 #COPY *.go ./
 RUN go build ./cmd/main.go
-EXPOSE 8080
-EXPOSE 8088
-CMD [ "./main" ]
+#EXPOSE 8080
+#EXPOSE 8088
+#CMD [ "./main" ]
 

@@ -8,7 +8,7 @@ import (
 const user = "postgres"
 const myPass = "postgres"
 const dbname = "postgres"
-const connStr = "user=" + user + " password=" + myPass + " dbname=" + dbname + " sslmode=disable"
+const connStr = "host=postgres" + " port=5432" + " user=" + user + " password=" + myPass + " dbname=" + dbname + " sslmode=disable"
 
 type Server struct {
 	Storage storage.MemoryStorage

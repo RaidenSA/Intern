@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-const Addr = "localhost:8080"
+const Addr = ":8080"
 
 func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
@@ -44,7 +44,7 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 		// If we already have this url, return token
 		token := s.CreateToken(decodedURL)
 		//Return full short url
-		newUrl := "http://" + Addr + "/" + token
+		newUrl := "http://localhost" + Addr + "/" + token
 		_, err = fmt.Fprint(w, newUrl)
 		if err != nil {
 			log.Fatal(err, "!")
